@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BlogActivity"
+    >
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_below="@id/toolbar"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Title"
+    />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_below="@id/title"
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Category"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_below="@id/category"
+        android:layout_above="@id/btnPost"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Content"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPost"
+        android:background="@drawable/send"
+        android:layout_alignParentBottom="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:onClick="doPost"/>
+    </RelativeLayout>

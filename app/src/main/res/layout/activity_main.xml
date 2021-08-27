@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@id/tool"
+        android:src="@drawable/thankyouduck"
+        />
+
+    <LinearLayout
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        >
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/user"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/password"
+        android:hint="   輸入帳號   "
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/pwd"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+
+        android:layout_width="match_parent"
+        android:inputType="textPassword"
+        android:background="@drawable/password"
+        android:hint="   輸入密碼   "
+        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登入"
+            android:onClick="doLogin"
+           />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="註冊"
+                android:onClick="doRegister"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
