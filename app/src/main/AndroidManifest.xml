@@ -3,7 +3,7 @@
     package="com.ian.eyusr">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_PROFILES"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_PROFILES" />
 
     <application
         android:name=".MainApp"
@@ -14,13 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EyUsr">
+
+
         <activity
             android:name=".FansPageActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true" >
-
-
-        </activity>
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Agreement"
             android:exported="true"
@@ -42,13 +41,18 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MenuActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <!-- Include the host attribute if you want your app to respond
-                     only to URLs with your app's domain. -->
-                <data android:scheme="http" android:host="www.google.com" />
+                <!--
+                     Include the host attribute if you want your app to respond
+                     only to URLs with your app's domain.
+                -->
+                <data
+                    android:host="www.google.com"
+                    android:scheme="http" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <!-- The BROWSABLE category is required to get links from web pages. -->
                 <category android:name="android.intent.category.BROWSABLE" />

@@ -3,6 +3,7 @@ package com.ian.eyusr;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,7 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.reflect.TypeToken;
+import com.ian.eyusr.Adapter.ActivityTargetAdapter;
 import com.ian.eyusr.Adapter.CheckAdapter;
+import com.ian.eyusr.Obj.ActivityTarget;
+import com.ian.eyusr.Obj.ActivityTargetDAO;
 import com.ian.eyusr.Obj.Check;
 import com.ian.eyusr.Util.UsrGet;
 
@@ -29,17 +33,15 @@ public class CheckActivity extends AppCompatActivity {
     RecyclerView view ;
     MainApp app;
     URL url;
-    HttpURLConnection conn;
-    MyHandler handler;
+    RecyclerView targetView;
+    ActivityTargetDAO dao;
+    ActivityTargetAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
-        view = findViewById(R.id.checkview);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        manager.setOrientation(RecyclerView.VERTICAL);
-        view.setLayoutManager(manager);
-        view.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = findViewById(R.id.back_toolbar);
@@ -51,39 +53,20 @@ public class CheckActivity extends AppCompatActivity {
         });
 
         app = (MainApp) getApplication();
-        handler = new MyHandler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UsrGet<Check> usrGet = new UsrGet<>(app.activity_url);
-                    usrGet.setToken(app.getToken());
-                    String response = usrGet.doGet();
-                    Type type = new TypeToken<List<Check>>(){}.getType();
-                    List<Check> checks = usrGet.parseJsonList(response, type);
-                    handler.setData(checks);
-                    handler.sendEmptyMessage(0);
+        targetView = findViewById(R.id.targets);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(RecyclerView.VERTICAL);
+        targetView.setLayoutManager(manager);
+        targetView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        dao = new ActivityTargetDAO(this);
+        if (dao.getAll().size()==0)
+        dao.sample();
+        List<ActivityTarget>  activityTargets = dao.getAll();
+        Log.i("MainActivity",activityTargets.toString());
+        adapter = new ActivityTargetAdapter(this,activityTargets);
+        targetView.setAdapter(adapter);
 
-                } catch (IOException e) {
-                    for (StackTraceElement se:e.getStackTrace())
-                    {app.Log(se.toString());}
-                }
-
-            }
-        }).start();
     }
 
-    class MyHandler extends Handler{
-        List<Check> datas;
-        public void setData(List<Check> datas)
-        {
-            this.datas = datas;
-        }
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            view.setAdapter(new CheckAdapter(CheckActivity.this,datas));
-//            view.notifyAll();
-        }
-    }
+
 }
